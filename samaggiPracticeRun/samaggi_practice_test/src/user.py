@@ -6,7 +6,11 @@ import os
 class PynamoUser(Model):
     class Meta:
         table_name = "SamaggiPracticeRunUser"
-        region = 'eu-west-2'
+        region = os.environ.get('USER_TABLE_NAME')
+
     user_id = UnicodeAttribute(hash_key = True)
     username = UnicodeAttribute()
     age = NumberAttribute()
+
+    def returnJson(self):
+        return vars(self).get('attribute_values')
