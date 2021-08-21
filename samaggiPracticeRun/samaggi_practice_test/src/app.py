@@ -1,5 +1,5 @@
 import json
-from user import PynamoUser
+from .user import PynamoUser
 
 
 def test(event, context):
