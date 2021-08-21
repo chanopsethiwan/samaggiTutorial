@@ -5,8 +5,8 @@ import os
 
 class PynamoUser(Model):
     class Meta:
-        table_name = "SamaggiPracticeRunUser"
-        region = os.environ.get('USER_TABLE_NAME')
+        table_name = os.environ.get('USER_TABLE_NAME')
+        region = 'eu-west-2'
 
     user_id = UnicodeAttribute(hash_key = True)
     username = UnicodeAttribute()
