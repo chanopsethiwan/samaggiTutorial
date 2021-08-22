@@ -1,21 +1,29 @@
 import json
 from .user import PynamoUser
 from uuid import uuid4
+import boto3
+from boto3.dynamodb.conditions import Key
+import os
 
 def hello_world(event, context):
-    return {'data': 'Hello World'}
+    return {'data': 'Hello Gai'}
 
 def get_user(event, context):
     item = event['arguments']
     user_id = item['user_id']
-    iterator = PynamoUser.query(user_id, consistent_read=True)
-    user_list = list(iterator)
-    lst = []
-    if len(user_list) > 0:
-        for user in user_list:
-            lst.append(user.returnJson())
-    else:
-        return {'status': 400}
+    # iterator = PynamoUser.query(user_id, consistent_read=True)
+    # user_list = list(iterator)
+    # lst = []
+    # if len(user_list) > 0:
+    #     for user in user_list:
+    #         lst.append(user.returnJson())
+    # else:
+    #     return {'status': 400}
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table(os.environ.get('USER_TABLE_NAME'))
+    # response = table.query(KeyConditionExpression=Key('user_id').eq(user_id))
+    response = table.scan()
+    lst = response['Items']
 
     return {'status': 200,
             'data': lst}
