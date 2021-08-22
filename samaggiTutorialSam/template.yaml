@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  samaggiTutorialSam
+
+  Sample SAM Template for samaggiTutorialSam
+
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: python3.8
+    Environment:
+      Variables:
+        USER_TABLE_NAME: !Ref UserTable
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: samaggiUser/
+      Handler: app.hello_world   
+      
+  GetUserFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: samaggiUser/
+      Handler: app.get_user
+
+  AddUserFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: samaggiUser/
+      Handler: app.add_user
+  
+  UserTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: user_id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: HASH
+      TableName: "SamaggiTutorialSamUser"
+
+Outputs:
+  HelloWorldFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn
