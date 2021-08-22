@@ -1,5 +1,6 @@
 import json
 from .user import PynamoUser
+from uuid import uuid4
 
 
 def test(event, context):
@@ -19,3 +20,14 @@ def get_user(event, context):
 
     return {'status': 200,
             'data': lst}
+
+def add_user(event, context):
+    item = event['arguments']
+    user_uuid4 = str(uuid4())
+    user_item = PynamoUser(
+        user_id = user_uuid4,
+        username = item['username'],
+        age = item['age']
+    )
+    user_item.save()
+    return {'status': 200}

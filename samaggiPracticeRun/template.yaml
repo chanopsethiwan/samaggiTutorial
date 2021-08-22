@@ -25,6 +25,12 @@ Resources:
     Properties:
       CodeUri: samaggi_practice_test/
       Handler: app.get_user
+
+  AddUserFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: samaggi_practice_test/
+      Handler: app.add_user
   
   UserTable:
     Type: AWS::DynamoDB::Table

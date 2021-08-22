@@ -1,1 +1,1 @@
-from src.app import test, get_user
+from src.app import test, get_user, add_user
