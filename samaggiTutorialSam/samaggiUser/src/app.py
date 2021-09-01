@@ -20,11 +20,11 @@ def get_user(event, context):
     else:
         return {'status': 400}
 
-    ##### init boto3
+    # #### init boto3
     # dynamodb = boto3.resource('dynamodb')
     # table = dynamodb.Table(os.environ.get('USER_TABLE_NAME'))
     
-    #### SELECT * FROM table WHERE user_id='6'
+    # #### SELECT * FROM table WHERE user_id='6'
     # response =  table.get_item(Key={'user_id': str(user_id)})
 
 
